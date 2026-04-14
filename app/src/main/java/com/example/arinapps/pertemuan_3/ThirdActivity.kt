@@ -2,14 +2,10 @@ package com.example.arinapps.pertemuan_3
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.arinapps.R
 import com.example.arinapps.databinding.ActivityThirdBinding
 
 class ThirdActivity : AppCompatActivity() {
@@ -19,20 +15,25 @@ class ThirdActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityThirdBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-//        val btnKirim: Button = findViewById(R.id.btnKirim)
-//        val noTujuan: EditText = findViewById(R.id.inputNoTujuan)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.apply {
+            title = "Pertemuan 3"
+            setDisplayHomeAsUpEnabled(true)
+        }
 
         binding.btnKirim.setOnClickListener {
             val nomor = binding.inputNoTujuan.text
-            Toast.makeText(this, "Pesan berhasil dikirim ke $nomor", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, ThirdResultActivity::class.java)
-            startActivity(intent)
+            Toast.makeText(this, "Ke: $nomor", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ThirdResultActivity::class.java))
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
