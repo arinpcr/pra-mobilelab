@@ -14,6 +14,7 @@ import com.example.arinapps.Home.pertemuan_2.SecondActivity
 import com.example.arinapps.Home.pertemuan_3.ThirdActivity
 import com.example.arinapps.Home.pertemuan_4.FourthActivity
 import com.example.arinapps.Home.pertemuan_5.FifthActivity
+import com.example.arinapps.Home.pertemuan_9.NinthActivity
 import com.example.arinapps.R
 import com.example.arinapps.databinding.FragmentHomeBinding
 import com.example.arinapps.pertemuan_7.SeventhActivity
@@ -27,13 +28,13 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val sharedPref = requireContext().getSharedPreferences("user_pref", MODE_PRIVATE)
 
@@ -42,19 +43,14 @@ class HomeFragment : Fragment() {
             title = "Home"
         }
 
-        // ---  INI UNTUK PERTEMUAN 2 ---
         binding.btnToSecond.setOnClickListener {
-            val intent = Intent(requireContext(), SecondActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), SecondActivity::class.java))
         }
 
-        // ---  INI UNTUK PERTEMUAN 3 ---
         binding.btnToThird.setOnClickListener {
-            val intent = Intent(requireContext(), ThirdActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), ThirdActivity::class.java))
         }
 
-        // Tombol ke Pertemuan 4
         binding.btnToFourth.setOnClickListener {
             val intent = Intent(requireContext(), FourthActivity::class.java)
             intent.putExtra("nama", "Politeknik Caltex Riau")
@@ -63,18 +59,18 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        // ---  INI UNTUK PERTEMUAN 5 ---
         binding.btnToFifth.setOnClickListener {
-            val intent = Intent(requireContext(), FifthActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), FifthActivity::class.java))
         }
 
-        // ---  INI UNTUK PERTEMUAN 7 ---
         binding.btnToSeventh.setOnClickListener {
-            val intent = Intent(requireContext(), SeventhActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), SeventhActivity::class.java))
         }
 
+        // --- INI UNTUK PERTEMUAN 9 (BARU) ---
+        binding.btnToNinth.setOnClickListener {
+            startActivity(Intent(requireContext(), NinthActivity::class.java))
+        }
 
         binding.btnLogout.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
@@ -94,5 +90,10 @@ class HomeFragment : Fragment() {
                 }
                 .show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
