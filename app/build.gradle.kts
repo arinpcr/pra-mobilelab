@@ -52,4 +52,7 @@ dependencies {
 
     // --- TAMBAHAN UNTUK PERTEMUAN 9 (GRIDLAYOUT) ---
     implementation("androidx.gridlayout:gridlayout:1.0.0")
+
+    //P10
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 }

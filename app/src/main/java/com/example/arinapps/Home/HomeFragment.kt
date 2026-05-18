@@ -18,6 +18,7 @@ import com.example.arinapps.Home.pertemuan_9.NinthActivity
 import com.example.arinapps.R
 import com.example.arinapps.databinding.FragmentHomeBinding
 import com.example.arinapps.pertemuan_7.SeventhActivity
+import com.example.arinapps.Home.pertemuan_10.TenthActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class HomeFragment : Fragment() {
@@ -70,6 +71,10 @@ class HomeFragment : Fragment() {
         // --- INI UNTUK PERTEMUAN 9 (BARU) ---
         binding.btnToNinth.setOnClickListener {
             startActivity(Intent(requireContext(), NinthActivity::class.java))
+        }
+
+        binding.btnToTenth.setOnClickListener {
+            startActivity(Intent(requireContext(), TenthActivity::class.java))
         }
 
         binding.btnLogout.setOnClickListener {
