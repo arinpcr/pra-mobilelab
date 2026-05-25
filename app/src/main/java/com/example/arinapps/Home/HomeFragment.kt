@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import androidx.lifecycle.lifecycleScope
 import com.example.arinapps.Home.pertemuan_2.SecondActivity
 import com.example.arinapps.Home.pertemuan_3.ThirdActivity
 import com.example.arinapps.Home.pertemuan_4.FourthActivity
@@ -19,7 +20,9 @@ import com.example.arinapps.R
 import com.example.arinapps.databinding.FragmentHomeBinding
 import com.example.arinapps.pertemuan_7.SeventhActivity
 import com.example.arinapps.Home.pertemuan_10.TenthActivity
+import com.example.arinapps.data.api.CatFactApiClient
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -42,6 +45,11 @@ class HomeFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
             title = "Home"
+        }
+
+        // --- TOMBOL REFRESH DIPINDAHKAN KE SINI AGAR BERFUNGSI ---
+        binding.btnRefresh.setOnClickListener {
+            loadCatFact()
         }
 
         binding.btnToSecond.setOnClickListener {
@@ -68,11 +76,12 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireContext(), SeventhActivity::class.java))
         }
 
-        // --- INI UNTUK PERTEMUAN 9 (BARU) ---
+        // --- INI UNTUK PERTEMUAN 9 ---
         binding.btnToNinth.setOnClickListener {
             startActivity(Intent(requireContext(), NinthActivity::class.java))
         }
 
+        // --- INI UNTUK PERTEMUAN 10 ---
         binding.btnToTenth.setOnClickListener {
             startActivity(Intent(requireContext(), TenthActivity::class.java))
         }
@@ -83,7 +92,7 @@ class HomeFragment : Fragment() {
                 .setMessage("Apakah Anda yakin ingin keluar?")
                 .setPositiveButton("Ya") { dialog, _ ->
                     dialog.dismiss()
-                    sharedPref.edit{
+                    sharedPref.edit {
                         clear()
                         apply()
                     }
@@ -91,9 +100,23 @@ class HomeFragment : Fragment() {
                 }
                 .setNegativeButton("Batal") { dialog, _ ->
                     dialog.dismiss()
-                    Log.e("Info Dialog","Anda memilih Tidak!")
+                    Log.e("Info Dialog", "Anda memilih Tidak!")
                 }
                 .show()
+        }
+
+        // Memuat fakta kucing saat halaman pertama kali dibuka
+        loadCatFact()
+    }
+
+    private fun loadCatFact() {
+        lifecycleScope.launch {
+            try {
+                val response = CatFactApiClient.apiService.getCatFact()
+                binding.tvCatFact.text = "\"${response.fact}\""
+            } catch (e: Exception) {
+                binding.tvCatFact.text = "Gagal mengambil fakta kucing."
+            }
         }
     }
 
