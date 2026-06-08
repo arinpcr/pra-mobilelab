@@ -20,6 +20,7 @@ import com.example.arinapps.R
 import com.example.arinapps.databinding.FragmentHomeBinding
 import com.example.arinapps.pertemuan_7.SeventhActivity
 import com.example.arinapps.Home.pertemuan_10.TenthActivity
+import com.example.arinapps.Home.pertemuan_13.ThirteenthActivity
 import com.example.arinapps.data.api.CatFactApiClient
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
@@ -84,6 +85,11 @@ class HomeFragment : Fragment() {
         // --- INI UNTUK PERTEMUAN 10 ---
         binding.btnToTenth.setOnClickListener {
             startActivity(Intent(requireContext(), TenthActivity::class.java))
+        }
+
+        // --- INI UNTUK PERTEMUAN 13 ---
+        binding.btnToThirteenth.setOnClickListener {
+            startActivity(Intent(requireContext(), ThirteenthActivity::class.java))
         }
 
         binding.btnLogout.setOnClickListener {
